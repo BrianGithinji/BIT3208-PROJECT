@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Fig 1: JavaScript Form Validation</title>
+    <style>
+        body { font-family: Arial, sans-serif; max-width: 450px; margin: 60px auto; }
+        .form-group { margin-bottom: 16px; }
+        label { display: block; margin-bottom: 4px; font-weight: bold; }
+        input { width: 100%; padding: 8px; font-size: 1rem; box-sizing: border-box; border: 1px solid #ccc; border-radius: 4px; }
+        input.error { border-color: #e74c3c; }
+        input.success { border-color: #2ecc71; }
+        .error-msg { color: #e74c3c; font-size: 0.82rem; margin-top: 4px; display: none; }
+        button { width: 100%; padding: 10px; background: #3498db; color: #fff; border: none; font-size: 1rem; border-radius: 4px; cursor: pointer; }
+        button:hover { background: #2980b9; }
+        #success-msg { display: none; color: green; font-weight: bold; margin-top: 14px; text-align: center; }
+    </style>
+</head>
+<body>
+    <h2>Registration Form</h2>
+    <form id="regForm" novalidate>
+
+        <div class="form-group">
+            <label for="fullname">Full Name</label>
+            <input type="text" id="fullname" placeholder="Enter full name">
+            <div class="error-msg" id="err-fullname">Name must be at least 3 characters.</div>
+        </div>
+
+        <div class="form-group">
+            <label for="email">Email Address</label>
+            <input type="email" id="email" placeholder="Enter email">
+            <div class="error-msg" id="err-email">Enter a valid email address.</div>
+        </div>
+
+        <div class="form-group">
+            <label for="phone">Phone Number</label>
+            <input type="text" id="phone" placeholder="e.g. 0712345678">
+            <div class="error-msg" id="err-phone">Enter a valid 10-digit phone number.</div>
+        </div>
+
+        <div class="form-group">
+            <label for="password">Password</label>
+            <input type="password" id="password" placeholder="Enter password">
+            <div class="error-msg" id="err-password">Password must be at least 8 characters.</div>
+        </div>
+
+        <div class="form-group">
+            <label for="confirm">Confirm Password</label>
+            <input type="password" id="confirm" placeholder="Confirm password">
+            <div class="error-msg" id="err-confirm">Passwords do not match.</div>
+        </div>
+
+        <button type="submit">Register</button>
+        <div id="success-msg">✅ Form submitted successfully!</div>
+    </form>
+
+    <script>
+        const fields = {
+            fullname: { error: "err-fullname", validate: v => v.trim().length >= 3 },
+            email:    { error: "err-email",    validate: v => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v) },
+            phone:    { error: "err-phone",    validate: v => /^\d{10}$/.test(v) },
+            password: { error: "err-password", validate: v => v.length >= 8 },
+            confirm:  { error: "err-confirm",  validate: v => v === document.getElementById("password").value }
+        };
+
+        function validateField(id) {
+            const input = document.getElementById(id);
+            const errEl = document.getElementById(fields[id].error);
+            const valid = fields[id].validate(input.value);
+            input.classList.toggle("error", !valid);
+            input.classList.toggle("success", valid);
+            errEl.style.display = valid ? "none" : "block";
+            return valid;
+        }
+
+        // Live validation on blur
+        Object.keys(fields).forEach(id => {
+            document.getElementById(id).addEventListener("blur", () => validateField(id));
+        });
+
+        document.getElementById("regForm").addEventListener("submit", e => {
+            e.preventDefault();
+            const allValid = Object.keys(fields).map(validateField).every(Boolean);
+            document.getElementById("success-msg").style.display = allValid ? "block" : "none";
+        });
+    </script>
+</body>
+</html>

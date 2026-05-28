@@ -52,7 +52,7 @@ include '../includes/header.php';
                 </form>
                 <p class="text-center mt-3 mb-0 small">No account? <a href="register.php">Register here</a></p>
                 <hr class="my-3">
-               
+                <p class="text-muted small text-center mb-0">Demo: <code>admin@shop.com</code> / <code>password</code></p>
             </div>
         </div>
     </div>

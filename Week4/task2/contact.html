@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Contact Form</title>
+    <style>
+        * { box-sizing: border-box; }
+        body { font-family: Arial, sans-serif; background: #f0f2f5; margin: 0; padding: 40px 20px; }
+        .wrapper { max-width: 700px; margin: 0 auto; }
+        h1 { color: #2c3e50; margin-bottom: 5px; }
+        .subtitle { color: #888; font-size: 14px; margin-bottom: 30px; }
+        .card { background: #fff; padding: 30px; border-radius: 10px; box-shadow: 0 4px 12px rgba(0,0,0,0.1); margin-bottom: 25px; }
+        .card h3 { margin-top: 0; color: #e67e22; }
+        label { display: block; margin-top: 14px; font-size: 14px; font-weight: bold; color: #555; }
+        input[type="text"], input[type="email"], textarea, select {
+            width: 100%; padding: 10px; margin-top: 5px;
+            border: 1px solid #ccc; border-radius: 5px; font-size: 14px; font-family: inherit;
+        }
+        input:focus, textarea:focus, select:focus { outline: none; border-color: #e67e22; }
+        textarea { resize: vertical; min-height: 100px; }
+        .row { display: flex; gap: 15px; }
+        .row > div { flex: 1; }
+        button { margin-top: 20px; padding: 11px 28px; border: none; border-radius: 5px; font-size: 15px; cursor: pointer; }
+        .btn-post { background: #e67e22; color: #fff; }
+        .btn-post:hover { background: #ca6f1e; }
+        .btn-get { background: #2980b9; color: #fff; }
+        .btn-get:hover { background: #2471a3; }
+        .compare { background: #fef9e7; border: 1px solid #f9ca24; padding: 15px; border-radius: 6px; font-size: 13px; }
+        .compare h4 { margin: 0 0 10px; color: #b7950b; }
+        .compare table { width: 100%; border-collapse: collapse; }
+        .compare td { padding: 7px 10px; border-bottom: 1px solid #f0e68c; }
+        .compare td:first-child { font-weight: bold; width: 30%; }
+        a { color: #e67e22; font-size: 13px; }
+    </style>
+</head>
+<body>
+<div class="wrapper">
+    <h1>📬 Contact Us</h1>
+    <p class="subtitle">This page demonstrates both POST (contact form) and GET (search) methods.</p>
+
+    <!-- ── POST FORM: Contact Message ─────────────────────────── -->
+    <div class="card">
+        <h3>Send a Message (POST)</h3>
+        <!--
+            POST: Data goes in the request body.
+            Use for: forms that change data, contain sensitive info, or send large content.
+        -->
+        <form action="contact_process.php" method="POST">
+            <div class="row">
+                <div>
+                    <label for="name">Full Name</label>
+                    <input type="text" id="name" name="name" placeholder="Brian Doe" required>
+                </div>
+                <div>
+                    <label for="email">Email</label>
+                    <input type="email" id="email" name="email" placeholder="brian@example.com" required>
+                </div>
+            </div>
+
+            <label for="subject">Subject</label>
+            <select id="subject" name="subject" required>
+                <option value="">-- Select Subject --</option>
+                <option value="General Inquiry">General Inquiry</option>
+                <option value="Technical Support">Technical Support</option>
+                <option value="Feedback">Feedback</option>
+                <option value="Other">Other</option>
+            </select>
+
+            <label for="message">Message</label>
+            <textarea id="message" name="message" placeholder="Write your message here..." required></textarea>
+
+            <input type="hidden" name="form_method" value="POST">
+            <button type="submit" class="btn-post">Send Message (POST) →</button>
+        </form>
+    </div>
+
+    <!-- ── GET FORM: FAQ Search ────────────────────────────────── -->
+    <div class="card">
+        <h3>Search FAQ (GET)</h3>
+        <!--
+            GET: Data is appended to the URL as query string.
+            e.g. contact_process.php?search=registration&form_method=GET
+            Use for: searches, filters — actions that don't change data and are safe to bookmark/share.
+        -->
+        <form action="contact_process.php" method="GET">
+            <label for="search">Search Topic</label>
+            <input type="text" id="search" name="search" placeholder="e.g. registration, password, fees">
+            <input type="hidden" name="form_method" value="GET">
+            <button type="submit" class="btn-get">Search (GET) →</button>
+        </form>
+        <p style="font-size:12px; color:#888; margin-top:8px;">
+            Notice: after submitting, the search term appears in the URL bar.
+        </p>
+    </div>
+
+    <!-- ── GET vs POST Comparison ─────────────────────────────── -->
+    <div class="compare">
+        <h4>GET vs POST — Quick Comparison</h4>
+        <table>
+            <tr><td>Data Location</td><td>GET → URL query string &nbsp;|&nbsp; POST → Request body</td></tr>
+            <tr><td>Visibility</td><td>GET → visible in URL &nbsp;|&nbsp; POST → hidden</td></tr>
+            <tr><td>Bookmarkable</td><td>GET → Yes &nbsp;|&nbsp; POST → No</td></tr>
+            <tr><td>Data Limit</td><td>GET → ~2000 chars &nbsp;|&nbsp; POST → No limit</td></tr>
+            <tr><td>Use For</td><td>GET → searches, filters &nbsp;|&nbsp; POST → forms, logins, uploads</td></tr>
+            <tr><td>Security</td><td>GET → not for sensitive data &nbsp;|&nbsp; POST → safer for passwords</td></tr>
+        </table>
+    </div>
+
+    <p style="margin-top:15px;"><a href="register.html">← Back to Register</a> &nbsp;|&nbsp; <a href="login.html">Login</a></p>
+</div>
+</body>
+</html>

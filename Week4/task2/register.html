@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Registration Form</title>
+    <style>
+        * { box-sizing: border-box; }
+        body { font-family: Arial, sans-serif; background: #f0f2f5; display: flex; justify-content: center; align-items: center; min-height: 100vh; margin: 0; }
+        .card { background: #fff; padding: 35px; border-radius: 10px; box-shadow: 0 4px 12px rgba(0,0,0,0.1); width: 100%; max-width: 480px; }
+        h2 { margin-top: 0; color: #2c3e50; }
+        label { display: block; margin-top: 14px; font-size: 14px; font-weight: bold; color: #555; }
+        input, select { width: 100%; padding: 10px; margin-top: 5px; border: 1px solid #ccc; border-radius: 5px; font-size: 14px; }
+        input:focus, select:focus { outline: none; border-color: #3498db; }
+        button { width: 100%; margin-top: 20px; padding: 12px; background: #3498db; color: #fff; border: none; border-radius: 5px; font-size: 16px; cursor: pointer; }
+        button:hover { background: #2980b9; }
+        .note { margin-top: 15px; font-size: 12px; color: #888; background: #f9f9f9; padding: 10px; border-radius: 5px; }
+        a { display: block; text-align: center; margin-top: 12px; font-size: 13px; color: #3498db; }
+    </style>
+</head>
+<body>
+<div class="card">
+    <h2>📝 Create Account</h2>
+
+    <!--
+        METHOD="POST": Form data is sent in the HTTP request BODY.
+        - Not visible in the URL
+        - Suitable for sensitive data (passwords, personal info)
+        - No length limit
+    -->
+    <form action="register_process.php" method="POST">
+
+        <label for="fullname">Full Name</label>
+        <input type="text" id="fullname" name="fullname" placeholder="Brian Doe" required>
+
+        <label for="email">Email Address</label>
+        <input type="email" id="email" name="email" placeholder="brian@example.com" required>
+
+        <label for="course">Course</label>
+        <select id="course" name="course" required>
+            <option value="">-- Select Course --</option>
+            <option value="BIT">BIT</option>
+            <option value="CS">Computer Science</option>
+            <option value="SE">Software Engineering</option>
+            <option value="IT">Information Technology</option>
+        </select>
+
+        <label for="password">Password</label>
+        <input type="password" id="password" name="password" placeholder="Min. 8 characters" required minlength="8">
+
+        <label for="confirm_password">Confirm Password</label>
+        <input type="password" id="confirm_password" name="confirm_password" placeholder="Repeat password" required>
+
+        <button type="submit">Register →</button>
+    </form>
+
+    <div class="note">
+        <strong>POST method:</strong> Data is sent in the request body — passwords are NOT visible in the URL.
+    </div>
+
+    <a href="login.html">Already have an account? Login</a>
+</div>
+</body>
+</html>
