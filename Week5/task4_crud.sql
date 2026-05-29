@@ -1,10 +1,4 @@
--- Task 4: CRUD Operations
--- BIT3208 Advanced Web Design
--- CRUD = Create, Read, Update, Delete
 
--- =====================
--- 1. studentdb CRUD
--- =====================
 USE studentdb;
 
 -- CREATE (Add Records)
