@@ -1,5 +1,5 @@
 <?php
-require_once __DIR__ . '/../Week1/db_connection.php';
+require_once(__DIR__ . '/db_connection.php');
 
 try {
     $pdo = new PDO("mysql:host=$host;dbname=$database;charset=utf8", $user, $password);

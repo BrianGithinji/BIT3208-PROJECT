@@ -9,7 +9,7 @@ $cat_id = (int)($_GET['category'] ?? 0);
 $sort   = $_GET['sort'] ?? 'newest';
 
 // Categories
-$categories = $pdo->query("SELECT * FROM categories ORDER BY name")->fetchAll();
+$categories = $pdo->query("SELECT * FROM categories ORDER BY category_name")->fetchAll();
 
 // Products query
 $where = ['1=1'];
@@ -22,7 +22,7 @@ $orderBy = match($sort) {
     'name'       => 'p.name ASC',
     default      => 'p.created_at DESC'
 };
-$sql = "SELECT p.*, c.name AS category FROM products p LEFT JOIN categories c ON p.category_id = c.id
+$sql = "SELECT p.*, c.category_name AS category FROM products p LEFT JOIN categories c ON p.category_id = c.id
         WHERE " . implode(' AND ', $where) . " ORDER BY $orderBy";
 $stmt = $pdo->prepare($sql);
 $stmt->execute($params);
@@ -65,7 +65,7 @@ include 'includes/header.php';
                         <?php foreach ($categories as $cat): ?>
                         <div class="form-check">
                             <input class="form-check-input" type="radio" name="category" value="<?= $cat['id'] ?>" id="cat<?= $cat['id'] ?>" <?= $cat_id == $cat['id'] ? 'checked' : '' ?> onchange="this.form.submit()">
-                            <label class="form-check-label small" for="cat<?= $cat['id'] ?>"><?= htmlspecialchars($cat['name']) ?></label>
+                            <label class="form-check-label small" for="cat<?= $cat['id'] ?>"><?= htmlspecialchars($cat['category_name']) ?></label>
                         </div>
                         <?php endforeach; ?>
                         <div class="form-check">
